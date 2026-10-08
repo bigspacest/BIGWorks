@@ -9,6 +9,7 @@
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>BIGWorks — Roblox Development Studio</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEHElEQVR4nLXWSYhcVRQG4K9eVceWtIlxCA5ojKAoYtw4gBsXghsFNw4ounIjiBEEdeHCCRXECVFwIYgKQnBcOQYXIhKMugm0YmxjwJjENiZmtIeqcnHu7br1+lUbkD7weFXv3nvOf6b/XKiE3I6P8AGuS9/y2rLLRvRwCEdwGDektfZyG78I+7Afu/E7juI7rEArPXVpJXD/K0oVbsMEZpLCMRGJC3EZ+g1GqvS9KyLXBPC4AVyFuZqSPk7EJel/q3amhzNwIy5P+/9LWuikZyGtFVYnhaXxfGBdTUk77b1ZpGgTvsJzSdeodOSIzaenm53q4OCIgz2cWYBqp4NX4w3MirqpcD++SYA6yUhpvIfTcBNOxxZ8nkG8in+wF3+kZw+O4f3C80oU5RbRKbvxZ9p7BB8XBtV+b8BPCchscugFVB38UBxoFe9uQl1G5C5ckUB2DAp0Bhcn76YN18wE3sS5CXSV1u/F1go/Gy7C3HZdnIqVRQgfEB1S54Y5nIL1hY4c+vtSBPalCHbS+gxuqbBD9H2pNANYnQz38aAoymMWt10P4wWAXKzn4B5RK2MNDq6tsAt/FSHN0sXJ6b0OdydFnZrxDKbC+cXvPh4SaSkj3Dco6v0d/C3Y7zxRjGUEOqJyr8EJyfu24VbNCntFBGYFid2JAxanrJ90f5urdGctArm4DuExXCvaNRvPYcz7K9F66wvvHxdp6VosYwnYpgzgl0J5ndVmDOe9vicX3GwC0BMMeX0yUk/ZvEjtO5jMi1NGc3o2kI2r/c4RmRNd8whuFYVdFesZ+JjoiGfRyop3JA8qzbxe93iUzOFhnCUiVxom0rEGr+FXVFnZ2dgqcpZptG4oK2uJaNWnZN7fNZgLpfGewaS9UpDZQgSm04exJbwtjY8Lhus37GtKVwa2Cq8I2q/Qy0hn8ZtgqvrBVk3JBLbhE8GS/dpTAi69X4ntYvZklhwaoVOGe7ypI9oiz3eI9sz9vVRd5KhN4HnRzgstXOZwu8XXr3I+zAu+f1QU7QGRuswfo0DkqH2PtxTe1wFMGVBm2fNZyRoxw18Snu9KT1PaMujs6TieEUxbEtgQmh3iNlwPa+btw2Ky5Srvikm6IunoFftL71fha3G3yOcWpOz7nWJel5ScCWYNnsCPhuuk/r8pFW08pbiGNQFoC7rdLEbwTPo+I6bZZrxsMGazwUlRG2WtZJlP3n+GT5u8rwNpifm9PRk4mN6TBpfTqvbeIEb0dO3JV7uj4g6ZI7GkZKUX4HV8iRcNLqZNrHeSuOsdEOSSAewW0Xv7eI3XFY8C1/TtQ5G+PQae7xX3jEuXON+4kPk9I24bEMmos+8azP2+YNW14iK6zaBulkUqMT/eS8b3JyBfiGLOtbVskpVP4EnRLU8n4+X6SPkXICtBhyXW96EAAAAASUVORK5CYII=">
   <style>
     :root {
       --bg: #000000;
@@ -77,6 +78,9 @@
     }
 
     .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-size: 21px;
       font-weight: 600;
       letter-spacing: -0.01em;
@@ -86,6 +90,18 @@
     }
 
     .logo:hover { opacity: 0.7; }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      display: block;
+      /* In light mode the black W stays black; in dark mode we invert it to white */
+      transition: filter 0.3s var(--ease);
+    }
+
+    body.theme-dark .logo-icon {
+      filter: invert(1);
+    }
 
     .nav {
       display: flex;
@@ -231,7 +247,9 @@
     }
 
     .contact-link {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       padding: 14px 28px;
       font-size: 15px;
       font-weight: 500;
@@ -242,10 +260,33 @@
       transition: background 0.35s var(--ease), color 0.35s var(--ease), transform 0.3s var(--ease);
     }
 
+    .contact-link img {
+      width: 18px;
+      height: 18px;
+      transition: filter 0.3s var(--ease);
+    }
+
+    body.theme-dark .contact-link img {
+      filter: invert(1);
+    }
+
     .contact-link:hover {
       background: var(--fg);
       color: var(--bg);
       transform: scale(1.03);
+    }
+
+    /* On hover the icon must invert relative to the new background */
+    .contact-link:hover img {
+      filter: invert(0);
+    }
+
+    body.theme-dark .contact-link:hover img {
+      filter: invert(0);
+    }
+
+    body.theme-light .contact-link:hover img {
+      filter: invert(1);
     }
 
     .contact-link:active { transform: scale(0.98); }
@@ -287,13 +328,18 @@
       .project-banner { height: 200px; }
       .coming-soon { font-size: 42px; letter-spacing: 0.25em; }
       .nav { gap: 18px; }
+      .logo { font-size: 18px; gap: 8px; }
+      .logo-icon { width: 24px; height: 24px; }
     }
   </style>
 </head>
 <body class="theme-dark">
   <header class="header">
     <div class="container header-inner">
-      <a href="/" class="logo">BIGWorks</a>
+      <a href="/" class="logo">
+        <img class="logo-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEHElEQVR4nLXWSYhcVRQG4K9eVceWtIlxCA5ojKAoYtw4gBsXghsFNw4ounIjiBEEdeHCCRXECVFwIYgKQnBcOQYXIhKMugm0YmxjwJjENiZmtIeqcnHu7br1+lUbkD7weFXv3nvOf6b/XKiE3I6P8AGuS9/y2rLLRvRwCEdwGDektfZyG78I+7Afu/E7juI7rEArPXVpJXD/K0oVbsMEZpLCMRGJC3EZ+g1GqvS9KyLXBPC4AVyFuZqSPk7EJel/q3amhzNwIy5P+/9LWuikZyGtFVYnhaXxfGBdTUk77b1ZpGgTvsJzSdeodOSIzaenm53q4OCIgz2cWYBqp4NX4w3MirqpcD++SYA6yUhpvIfTcBNOxxZ8nkG8in+wF3+kZw+O4f3C80oU5RbRKbvxZ9p7BB8XBtV+b8BPCchscugFVB38UBxoFe9uQl1G5C5ckUB2DAp0Bhcn76YN18wE3sS5CXSV1u/F1go/Gy7C3HZdnIqVRQgfEB1S54Y5nIL1hY4c+vtSBPalCHbS+gxuqbBD9H2pNANYnQz38aAoymMWt10P4wWAXKzn4B5RK2MNDq6tsAt/FSHN0sXJ6b0OdydFnZrxDKbC+cXvPh4SaSkj3Dco6v0d/C3Y7zxRjGUEOqJyr8EJyfu24VbNCntFBGYFid2JAxanrJ90f5urdGctArm4DuExXCvaNRvPYcz7K9F66wvvHxdp6VosYwnYpgzgl0J5ndVmDOe9vicX3GwC0BMMeX0yUk/ZvEjtO5jMi1NGc3o2kI2r/c4RmRNd8whuFYVdFesZ+JjoiGfRyop3JA8qzbxe93iUzOFhnCUiVxom0rEGr+FXVFnZ2dgqcpZptG4oK2uJaNWnZN7fNZgLpfGewaS9UpDZQgSm04exJbwtjY8Lhus37GtKVwa2Cq8I2q/Qy0hn8ZtgqvrBVk3JBLbhE8GS/dpTAi69X4ntYvZklhwaoVOGe7ypI9oiz3eI9sz9vVRd5KhN4HnRzgstXOZwu8XXr3I+zAu+f1QU7QGRuswfo0DkqH2PtxTe1wFMGVBm2fNZyRoxw18Snu9KT1PaMujs6TieEUxbEtgQmh3iNlwPa+btw2Ky5Srvikm6IunoFftL71fha3G3yOcWpOz7nWJel5ScCWYNnsCPhuuk/r8pFW08pbiGNQFoC7rdLEbwTPo+I6bZZrxsMGazwUlRG2WtZJlP3n+GT5u8rwNpifm9PRk4mN6TBpfTqvbeIEb0dO3JV7uj4g6ZI7GkZKUX4HV8iRcNLqZNrHeSuOsdEOSSAewW0Xv7eI3XFY8C1/TtQ5G+PQae7xX3jEuXON+4kPk9I24bEMmos+8azP2+YNW14iK6zaBulkUqMT/eS8b3JyBfiGLOtbVskpVP4EnRLU8n4+X6SPkXICtBhyXW96EAAAAASUVORK5CYII=" alt="BIGWorks" width="28" height="28">
+        BIGWorks
+      </a>
       <nav class="nav" aria-label="Navegación principal">
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
@@ -329,8 +375,9 @@
       <div class="container">
         <h2 class="section-title fade-in">Contact</h2>
         <p class="contact-text fade-in delay-1">Para consultas profesionales</p>
-        <a href="#" id="contact-link" class="contact-link fade-in delay-2" rel="noopener noreferrer">
-          [ENLACE DE CONTACTO — PENDIENTE]
+        <a href="https://roport.lol/studio/bigworks" class="contact-link fade-in delay-2" target="_blank" rel="noopener noreferrer">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACFklEQVR4nI3UT4iNYRQG8N/97r0z8qeJZizIn1KWs7K3kUQW1hakyE6xsiHKlLKyM4WNmiRrJTYWs1FikDIaiUFXZsZgMObea/Gdd7wzcydO3d7vPe85z3nOc04XCpzHc5xSWmGhVeL3X3YUTUxiFjvDX+0AvhzovL/AIXzHt7jvW8SqhfXoRrsDWDX8FVQKrMMcasF0cxbcVsrwDMPYHok56yZWRGwbHuAr3gfT+1kLe4JhI4KvZ6yKiDuLl7idyFzFD3zANB6jC3U8zIpNYiRaTwWPRaHPcd4sMJrp1USvcjiHsSO0rcdbHzYEWB9OYyLiJ9BfBN1mBtiFAzgZjNO0m1iNLZm2mwKsiLxGDWOYsXBag8ohpWCh5SqsUU79OKb8HWYXbhV4F/rULFyLuTjT9Cr4rVyry1gZManQCK7VoveP2IhfkdgOZu1IqEQHX3Aw7lPhmwvwS5gpIuFNCN8KVglUtFiP70K5ETPx3Yr3YeXaFEmfsUUtpwH14ByeRFtpeKlgO4oNBNNKAnyV6ZT0W4u7uIgXIXqucSsK3sOdYNxMgK9Dv6RbPbQ9Eb7RiMsBE8uB7D5vvRhXbvx4BB7J3nfjp3J4jThnMRTv1Sx2/nIm0+VK+GpxbgugT3E2lBPv7wSY052L/Zkv+bvxVLkqb5UaDy4H9i9LCReC/bRSlq2W/pV1TF5cMTHtwQ08wq54WwL2B3LImdSQiwvEAAAAAElFTkSuQmCC" alt="" width="18" height="18">
+          Contactar en RoPort
         </a>
       </div>
     </section>

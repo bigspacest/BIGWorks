@@ -5,24 +5,18 @@
   const toggle = document.getElementById("theme-toggle");
   const yearEl = document.getElementById("year");
 
-  // Año dinámico
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // Preferencia guardada o sistema
+  // Tema persistente
   const saved = localStorage.getItem("bigworks-theme");
   if (saved === "light") {
-    body.classList.remove("theme-dark");
-    body.classList.add("theme-light");
-  } else if (saved === "dark") {
-    body.classList.remove("theme-light");
-    body.classList.add("theme-dark");
+    body.classList.replace("theme-dark", "theme-light");
   }
 
-  // Toggle
   if (toggle) {
-    toggle.addEventListener("click", function () {
+    toggle.addEventListener("click", () => {
       const isDark = body.classList.contains("theme-dark");
       body.classList.toggle("theme-dark", !isDark);
       body.classList.toggle("theme-light", isDark);
@@ -30,15 +24,9 @@
     });
   }
 
-  // Seguridad básica: deshabilitar click derecho y selección en banner
-  document.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-  });
-
-  // Protección ligera contra drag de imágenes (si se agregan después)
-  document.addEventListener("dragstart", function (e) {
-    if (e.target.tagName === "IMG") {
-      e.preventDefault();
-    }
+  // Seguridad básica
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+  document.addEventListener("dragstart", (e) => {
+    if (e.target.tagName === "IMG") e.preventDefault();
   });
 })();
